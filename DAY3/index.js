@@ -1,25 +1,18 @@
-// Function to calculate age based on date of birth
-function calculateAge(dob) {
-  const birthDate = new Date(dob);
+function calculateAge() {
+  const birthdate = document.getElementById("birthdate").value;
+  if (!birthdate) {
+    document.getElementById("result").innerText = "Please select a date.";
+    return;
+  }
+  const birthDate = new Date(birthdate);
   const today = new Date();
   let age = today.getFullYear() - birthDate.getFullYear();
   const monthDifference = today.getMonth() - birthDate.getMonth();
-
-  // Adjust age if the birth date hasn't occurred yet this year
-  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+  if (
+    monthDifference < 0 ||
+    (monthDifference === 0 && today.getDate() < birthDate.getDate())
+  ) {
     age--;
   }
-
-  return age;
+  document.getElementById("result").innerText = `You are ${age} years old.`;
 }
-
-// Function to display age on the page
-function displayAge() {
-  const dobInput = document.getElementById('dob').value;
-  const age = calculateAge(dobInput);
-  const ageDisplay = document.getElementById('ageDisplay');
-  ageDisplay.textContent = `Your age is: ${age}`;
-}
-
-// Adding event listener to the button
-document.getElementById('calculateButton').addEventListener('click', displayAge);
